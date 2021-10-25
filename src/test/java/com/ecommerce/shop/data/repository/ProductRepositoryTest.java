@@ -53,4 +53,17 @@ class ProductRepositoryTest {
         assertThat(product).hasSize(4);
         log.info("Product returned from database ->{}",product);
     }
+    @Test
+    public void findExistingProductById(){
+        Product existingProduct =
+                productRepositoryImpl.findById(110l).orElse(null);
+        assertThat(existingProduct).isNotNull();
+        log.info("Product -> {}", existingProduct);
+    }
+    @Test
+    public void deleteExistingProduct(){
+        assertThat(productRepositoryImpl.findById(110l).orElse(null)).isNotNull();
+        productRepositoryImpl.deleteById(110l);
+        assertThat(productRepositoryImpl.findById(110l).orElse(null)).isNull();
+    }
 }
